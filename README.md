@@ -80,13 +80,13 @@ swift test
 
 To use SwiftPM, add this to your `Package.swift`
 
-```
+```swift
 .Package(url: "https://github.com/LoganWright/Genome.git", majorVersion: 3)
 ```
 
 ### Cocoapods
 
-```Ruby
+```ruby
 pod 'Genome', '~> 3.0'
 ```
 
@@ -111,7 +111,7 @@ github "LoganWright/Genome"
 
 Let's take the following hypothetical JSON
 
-```Swift
+```swift
 [
     "name" : "Rover",
     "nickname" : "RoRo", // Optional Value
@@ -122,7 +122,7 @@ Let's take the following hypothetical JSON
 Here's how we might create the model for this
 
 
-```Swift
+```swift
 enum PetType: String {
     case dog
     case cat
@@ -195,7 +195,7 @@ struct NASA {
 
 Now we can call like this:
 
-```
+```swift
 let photo = try NASA.fetchPhoto()
 ```
 
@@ -211,7 +211,7 @@ It has two requirements
 
 This is the initializer you will use to map your object.  You may call this manually if you like, but if you use any of the built in convenience initializers, this will be called automatically.  Otherwise, if you need to initialize a `Map`, use:
 
-```Swift
+```swift
 let map = Map(node: someNode, in: someContext)
 ```
 
@@ -253,7 +253,7 @@ Genome provides various options for transforming values.  These are type-safe an
 
 These are chainable, like the following:
 
-```Swift
+```swift
 try type <~> map["type"]
     .transformFromNode {
         return PetType(rawValue: $0)
@@ -297,7 +297,7 @@ Genome is most suited to `final` classes and structures, but it does support Inh
 
 The `Object` type is provided by the library to satisfy most inheritance based mapping operations.  Simply subclass `Object` and you're good to go:
 
-```Swift
+```swift
 class MyClass : Object {}
 ```
 
@@ -318,7 +318,7 @@ These are all just convenience protocols, and ultimately all derive from `Mappab
 
 This is the true root of the library.  Even `MappableBase` mentioned above inherits from this core type.  It has two requirements:
 
-```Swift
+```swift
 public protocol NodeConvertibleType {
     init(node: Node, in context: Context) throws
     func makeNode(context: Context) throws -> Node
@@ -331,13 +331,13 @@ All basic types such as `Int`, `String`, etc. conform to this protocol which all
 
 If you are using the standard instantiation scheme established in the library, you will likely initialize with this function.
 
-```Swift
+```swift
 public init(node: Node, in context: Context = EmptyNode) throws
 ```
 
 Now we can easily create an object safely:
 
-```Swift
+```swift
 do {
     let rover = try Pet(node: nodeRover)
     print(rover)
@@ -348,7 +348,7 @@ do {
 
 If all we care about is whether or not we were able to create an object, we can also do the following:
 
-```Swift
+```swift
 let rover = try? Pet(node: nodeRover)
 print(rover) // Rover is type: `Pet?`
 ```
@@ -365,7 +365,7 @@ If you're using `Foundation`, you can transform `Any`, `[String: Any]`, and `[An
 
 You can instantiate collections directly w/o mapping as well:
 
-```Swift
+```swift
 let people = try [People](node: someNode)
 ```
 
